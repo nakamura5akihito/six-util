@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<!-- /////////////////////////////////////////////////////////// -->
+<!-- // Project SIX: UTIL                                     // -->
+<!-- //                                                       // -->
+<!-- // Spring Application Context                            // -->
+<!-- /////////////////////////////////////////////////////////// -->
+
+<!--
+@author     Akihito Nakamura, AIST
+@version    $Id: six-util_spring-app-context.xml 316 2011-06-16 02:49:44Z nakamura5akihito $
+-->
+
+<beans>
+
+    <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+    <!-- %  XML                                                % -->
+    <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+    <bean id="utilSearchMarshaller" 
+      class="org.springframework.oxm.castor.CastorMarshaller">
+        <property name="mappingLocations"
+                 value="classpath:jp/go/aist/six/util/castor/six-util-search_castor-xml-mapping.xml"/>
+        <property name="ignoreExtraAttributes"
+                 value="true"/>
+        <property name="ignoreExtraElements"
+                 value="true"/>
+        <property name="suppressXsiType"
+                 value="true"/>
+    </bean> 
+
+
+    <bean id="searchXmlMapper" class="jp.go.aist.six.util.castor.SearchXmlMapper">
+        <property name="marshaller" ref="utilSearchMarshaller"/>
+        <property name="unmarshaller" ref="utilSearchMarshaller"/>
+    </bean>
+
+</beans>

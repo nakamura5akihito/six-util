@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<!-- /////////////////////////////////////////////////////////// -->
+<!-- // Project SIX: UTIL                                     // -->
+<!-- //                                                       // -->
+<!-- // Castor XML Mapping Specification                      // -->
+<!-- /////////////////////////////////////////////////////////// -->
+
+<!-- @author    Akihito Nakamura, AIST -->
+<!-- @version   $Id: castor-xml_six-util.xml 588 2013-04-18 10:15:48Z nakamura5akihito@gmail.com $ -->
+
+<mapping>
+
+    <class name="jp.go.aist.six.util.repository.QueryResults">
+        <map-to xml="query_results"
+            ns-uri="http://aist.go.jp/six/util/"/>
+        <field name="timestamp" type="date">
+            <bind-xml name="timestamp" node="element"/>
+        </field>
+        <field name="totalResults" type="long">
+            <bind-xml name="totalResults" node="element"
+                xmlns="http://a9.com/-/spec/opensearch/1.1/"/>
+        </field>
+        <field name="startIndex" type="long">
+            <bind-xml name="startIndex" node="element"
+                xmlns="http://a9.com/-/spec/opensearch/1.1/"/>
+        </field>
+        <field name="itemsPerPage" type="long">
+            <bind-xml name="itemsPerPage" node="element"
+                xmlns="http://a9.com/-/spec/opensearch/1.1/"/>
+        </field>
+        <field name="resultsElements" 
+            type="jp.go.aist.six.util.repository.QueryResultsElements"
+            container="false">
+            <bind-xml name="result_elements" node="element"/>
+        </field>
+    </class>
+
+    <class name="jp.go.aist.six.util.repository.QueryResultsElements">
+        <map-to xml="result_elements"
+            />
+<!--
+            type="java.io.Serializable" OK
+            type="java.lang.Object"     NG
+-->
+        <field name="elements" 
+            type="java.io.Serializable"
+            collection="collection">
+            <bind-xml auto-naming="deriveByClass" node="element"/>
+        </field>
+    </class>
+
+
+    <!-- ************************************************************** -->
+    <!-- exception                                                      -->
+    <!-- ************************************************************** -->
+
+    <class name="jp.go.aist.six.util.NestedRuntimeException">
+        <map-to xml="nested_runtime_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+        <field name="message" type="string"
+            set-method="%1"
+            get-method="getMessage">
+            <bind-xml name="message" node="attribute"/>
+        </field>
+    </class>
+
+<!-- config -->
+    <class name="jp.go.aist.six.util.config.ConfigurationException"
+        extends="jp.go.aist.six.util.NestedRuntimeException">
+        <map-to xml="configuration_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+<!-- repository -->
+    <class name="jp.go.aist.six.util.repository.RepositoryException"
+        extends="jp.go.aist.six.util.NestedRuntimeException">
+        <map-to xml="repository_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+    <class name="jp.go.aist.six.util.repository.ObjectIntegrityException"
+        extends="jp.go.aist.six.util.repository.RepositoryException">
+        <map-to xml="object_integrity_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+    <class name="jp.go.aist.six.util.repository.ObjectNotFoundException"
+        extends="jp.go.aist.six.util.repository.RepositoryException">
+        <map-to xml="object_not_found_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+        <field name="typeName" type="string">
+            <bind-xml name="type_name" node="attribute"/>
+        </field>
+        <field name="idValue" type="string">
+            <bind-xml name="id_value" node="attribute"/>
+        </field>
+    </class>
+
+    <class name="jp.go.aist.six.util.repository.ObjectTypeException"
+        extends="jp.go.aist.six.util.repository.RepositoryException">
+        <map-to xml="object_type_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+        <field name="typeName" type="string">
+            <bind-xml name="type_name" node="attribute"/>
+        </field>
+    </class>
+
+    <class name="jp.go.aist.six.util.repository.QueryException"
+        extends="jp.go.aist.six.util.repository.RepositoryException">
+        <map-to xml="query_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+    <class name="jp.go.aist.six.util.repository.RepositoryConfigurationException"
+        extends="jp.go.aist.six.util.repository.RepositoryException">
+        <map-to xml="repository_configuration_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+<!-- web -->
+    <class name="jp.go.aist.six.util.web.HttpException"
+        extends="jp.go.aist.six.util.NestedRuntimeException">
+        <map-to xml="http_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+<!-- xml -->
+    <class name="jp.go.aist.six.util.xml.XmlException"
+        extends="jp.go.aist.six.util.NestedRuntimeException">
+        <map-to xml="xml_exception"
+            ns-uri="http://aist.go.jp/six/util"/>
+    </class>
+
+</mapping>
+

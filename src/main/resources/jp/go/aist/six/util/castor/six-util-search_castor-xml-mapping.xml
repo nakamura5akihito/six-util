@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<!-- /////////////////////////////////////////////////////////// -->
+<!-- // Project SIX: UTIL Search Framework                    // -->
+<!-- //                                                       // -->
+<!-- // Castor XML Mapping Specification                      // -->
+<!-- //                                                       // -->
+<!-- /////////////////////////////////////////////////////////// -->
+
+<!-- @author    Akihito Nakamura, AIST -->
+<!-- @version   $Id: six-util-search_castor-xml-mapping.xml 316 2011-06-16 02:49:44Z nakamura5akihito $ -->
+
+<mapping>
+
+    <!-- ======================================================= -->
+    <!-- Binding                                                 -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.Binding"
+        verify-constructable="false">
+
+        <map-to xml="binding"/>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- NotBinding                                              -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.NotBinding"
+        extends="jp.go.aist.six.util.search.Binding">
+
+        <map-to xml="not_binding"/>
+
+        <field name="bindingToNegate" 
+            type="jp.go.aist.six.util.search.Binding">
+            <bind-xml auto-naming="deriveByClass" node="element"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- LogicalBinding                                          -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.LogicalBinding"
+        extends="jp.go.aist.six.util.search.Binding"
+        verify-constructable="false">
+
+        <map-to xml="logical_binding"/>
+
+        <field name="elements" 
+            type="jp.go.aist.six.util.search.Binding"
+            collection="collection">
+            <bind-xml auto-naming="deriveByClass" node="element"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- AndBinding                                              -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.AndBinding"
+        extends="jp.go.aist.six.util.search.LogicalBinding">
+
+        <map-to xml="and_binding"/>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- OrBinding                                               -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.OrBinding"
+        extends="jp.go.aist.six.util.search.LogicalBinding">
+
+        <map-to xml="or_binding"/>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- PropertyBinding                                         -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.PropertyBinding"
+        extends="jp.go.aist.six.util.search.Binding"
+        verify-constructable="false">
+
+        <map-to xml="property_binding"/>
+
+        <field name="property" type="string">
+            <bind-xml name="property" node="attribute" />
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- NullBinding                                             -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.NullBinding"
+        extends="jp.go.aist.six.util.search.PropertyBinding">
+
+        <map-to xml="null_binding"/>
+
+        <field name="notNull" type="boolean">
+            <bind-xml name="not_null" node="attribute"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- LikeBinding                                             -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.LikeBinding"
+        extends="jp.go.aist.six.util.search.PropertyBinding">
+
+        <map-to xml="like_binding"/>
+
+        <field name="pattern" type="string">
+            <bind-xml name="pattern" node="attribute"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- TextMatchBinding                                        -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.TextMatchBinding"
+        extends="jp.go.aist.six.util.search.PropertyBinding">
+
+        <map-to xml="text_match_binding"/>
+
+        <field name="text" type="string"
+            collection="collection">
+            <bind-xml name="text" node="element"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- InBinding                                               -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.InBinding"
+        extends="jp.go.aist.six.util.search.PropertyBinding">
+
+        <map-to xml="in_binding"/>
+
+        <field name="values" type="string"
+            collection="collection">
+            <bind-xml name="value" node="element"/>
+            <!-- bind-xml auto-naming="deriveByField"/ -->
+        </field>
+
+        <field name="nullContained" type="boolean">
+            <bind-xml name="contains_null" node="attribute"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- RelationalBinding                                       -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.RelationalBinding"
+        extends="jp.go.aist.six.util.search.PropertyBinding">
+        <map-to xml="relational_binding"/>
+
+        <field name="value" type="string">
+            <bind-xml name="value" node="attribute"/>
+        </field>
+
+        <field name="relation" type="string"
+            handler="jp.go.aist.six.util.castor.RelationHandler">
+            <bind-xml name="relation" node="attribute"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- Order                                                   -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.Order">
+        <map-to xml="order"/>
+
+        <field name="property" type="string">
+            <bind-xml name="property" node="attribute" />
+        </field>
+
+        <field name="descending" type="boolean">
+            <bind-xml name="descending" node="attribute" />
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- Limit                                                   -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.Limit">
+        <map-to xml="limit"/>
+
+        <field name="count" type="integer">
+            <bind-xml name="count" node="attribute" />
+        </field>
+
+        <field name="offset" type="integer">
+            <bind-xml name="offset" node="attribute" />
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- FulltextMatch                                           -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.FulltextMatch">
+        <map-to xml="fulltext_match"/>
+
+        <field name="properties" type="string"
+            collection="collection">
+            <bind-xml name="property" node="element" 
+                location="properties"/>
+        </field>
+
+        <field name="patterns" type="string"
+            collection="collection">
+            <bind-xml name="pattern" node="element" 
+                location="patterns"/>
+        </field>
+
+        <field name="matchAll" type="boolean">
+            <bind-xml name="match_all" node="attribute" />
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- Projection                                              -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.Projection"
+        verify-constructable="false">
+
+        <map-to xml="projection"/>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- PropertyProjection                                      -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.PropertyProjection"
+        extends="jp.go.aist.six.util.search.Projection">
+
+        <map-to xml="property_projection"/>
+
+        <field name="property" type="string">
+            <bind-xml name="property" node="attribute"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- Aggregation                                             -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.Aggregation"
+        extends="jp.go.aist.six.util.search.Projection">
+
+        <map-to xml="aggregation"/>
+
+        <field name="expression" type="string">
+            <bind-xml name="expression" node="attribute"/>
+        </field>
+
+        <field name="function" 
+            type="jp.go.aist.six.util.search.Function">
+            <bind-xml name="function" node="attribute"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- SearchCriteria                                          -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.SearchCriteria">
+        <map-to xml="search_criteria"/>
+
+        <field name="distinct" type="boolean">
+            <bind-xml name="distinct" node="attribute" />
+        </field>
+
+        <field name="binding" 
+            type="jp.go.aist.six.util.search.Binding">
+            <bind-xml auto-naming="deriveByClass" node="element"/>
+        </field>
+
+        <field name="fulltextMatch" 
+            type="jp.go.aist.six.util.search.FulltextMatch">
+            <bind-xml name="fulltext_match" node="element"/>
+        </field>
+
+        <field name="orders" 
+            type="jp.go.aist.six.util.search.Order"
+            collection="collection">
+            <bind-xml name="order" node="element"
+                location="orders"/>
+        </field>
+
+        <field name="projections" 
+            type="jp.go.aist.six.util.search.Projection"
+            collection="collection">
+            <bind-xml auto-naming="deriveByClass" node="element"
+                location="projections"/>
+            <!--  bind-xml name="projection" node="element"
+                location="projections"/ -->
+        </field>
+
+        <field name="limit" 
+            type="jp.go.aist.six.util.search.Limit">
+            <bind-xml name="limit" node="element"/>
+        </field>
+    </class>
+
+
+
+    <!-- ======================================================= -->
+    <!-- SearchResult                                            -->
+    <!-- ======================================================= -->
+    <class name="jp.go.aist.six.util.search.SearchResult">
+        <map-to xml="search_result"/>
+
+        <field name="timestamp" type="date">
+            <bind-xml name="timestamp" node="element"/>
+        </field>
+
+        <field name="elements" type="java.lang.Object"
+            collection="collection">
+            <bind-xml auto-naming="deriveByClass" node="element"
+                location="elements"/>
+        </field>
+    </class>
+
+</mapping>
+
+<!-- vim:set tabstop=4:set expandtab:set shiftwidth=4: -->
+
