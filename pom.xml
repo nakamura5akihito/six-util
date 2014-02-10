@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   
 <!--
 Project SIX: UTIL
@@ -13,7 +11,7 @@ Maven Project Object Model (POM)
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.go.aist.six.util</groupId>
     <artifactId>six-util</artifactId>
-    <version>3.7.0-SNAPSHOT</version>
+    <version>3.7.0</version>
     <!-- version>3.6.4-SNAPSHOT</version -->
     <packaging>jar</packaging>
 
@@ -45,11 +43,12 @@ Maven Project Object Model (POM)
     </licenses>
 
     <scm>
+        <!-- GitHub -->
     	<connection>scm:git:git@github.com:nakamura5akihito/six-util.git</connection>
     	<developerConnection>scm:git:git@github.com:nakamura5akihito/six-util.git</developerConnection>
     	<url>git@github.com:nakamura5akihito/six-util.git</url>
     	
-    	<!-- deprecated: google code settings 
+    	<!-- deprecated: Google Code settings 
   	    <connection>scm:svn:http://six-util.googlecode.com/svn/trunk</connection>
   	    <developerConnection>scm:svn:https://six-util.googlecode.com/svn/trunk</developerConnection>
   	    <url>http://code.google.com/p/six-util/source/browse/</url>
@@ -201,6 +200,37 @@ Maven Project Object Model (POM)
             <version>${org.mongodb.morphia.version}</version>
         </dependency>
     </dependencies>
+
+
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
     <!-- ============================================================= -->
@@ -388,8 +418,8 @@ Maven Project Object Model (POM)
                 </executions>
             </plugin>
 
+            <!-- The artifacts shoud be signed using GPG. 
             <plugin>
-                <!-- The artifacts shoud be signed using GPG. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>${maven-gpg-plugin.version}</version>
@@ -403,6 +433,7 @@ Maven Project Object Model (POM)
                     </execution>
                 </executions>
             </plugin>
+            -->
         </plugins>
     </build>
 
