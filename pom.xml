@@ -11,8 +11,8 @@ Maven Project Object Model (POM)
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.go.aist.six.util</groupId>
     <artifactId>six-util</artifactId>
-    <version>3.7.0-SNAPSHOT</version>
-    <!-- version>3.7.0</version -->
+    <!-- version>3.7.0-SNAPSHOT</version -->
+    <version>3.7.0</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -326,6 +326,7 @@ Maven Project Object Model (POM)
                         
                         <manifestEntries>
                             <Built-On>${maven.build.timestamp}</Built-On>
+                            <Built-By>Aki Nakamura (nakamura5akihito@gmail.com)</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -336,7 +337,7 @@ Maven Project Object Model (POM)
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
-                    <source>1.5</source>
+                    <!-- source>1.5</source -->
                     <author>true</author>
                     <version>true</version>
                     <use>true</use>
@@ -348,6 +349,15 @@ Maven Project Object Model (POM)
                     <windowtitle>${project.name} ${project.version}</windowtitle>
                     <doctitle>${project.name} ${project.version} API Specification</doctitle>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Appends license header in source code. -->
@@ -410,7 +420,7 @@ Maven Project Object Model (POM)
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>

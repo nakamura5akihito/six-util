@@ -34,6 +34,7 @@ public class UrlUtil
      *
      * @param params
      * @return
+     * 	converts the given query parameters object to an URL query parameters string.
      */
     public static String toString(
                     final QueryParams params
