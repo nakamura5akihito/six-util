@@ -11,7 +11,7 @@ the above functions are the intrinsic value of Castor.
 SIX UTIL simplifies APIs for these functions and appends a supplementary framework 
 of data search in the object-oriented manner.
 
-Since version 3.5.0, Object-MongoDB mapping utility classes are provided. 
+Since version 3.5.0, Object-NoSQL mapping utility classes are provided. 
 [Morphia](https://github.com/mongodb/morphia) is used for the Object-MongoDB mapping.
 
 > Note: Up to version 3.6.3, 
