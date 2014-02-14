@@ -14,6 +14,10 @@ of data search in the object-oriented manner.
 Since version 3.5.0, Object-MongoDB mapping utility classes are provided. 
 [Morphia](https://github.com/jmkgreen/morphia) is used for the Object-MongoDB mapping.
 
+> Note: Up to version 3.6.3, 
+the code is hosted on [Google Code](http://code.google.com/p/six-util/).
+
+
 ## License 
 SIX UTIL is an open source software, licensed under the 
 [Apache License, Version 2.0](http://www.apache.org/licenses/), 
