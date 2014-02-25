@@ -19,9 +19,16 @@
 package jp.go.aist.six.util.core.repository.morphia;
 
 import java.util.Set;
+
+import jp.go.aist.six.util.repository.RepositoryException;
+
+import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.converters.DefaultConverters;
 import org.mongodb.morphia.converters.TypeConverter;
+
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
 
 
 
@@ -33,6 +40,84 @@ import org.mongodb.morphia.converters.TypeConverter;
  */
 public class MorphiaFactory
 {
+	
+    private Morphia  _morphia;
+	private MongoClient  _client;
+	
+	
+	
+	public MorphiaFactory()
+	{
+		this( null );
+	}
+
+	
+	public MorphiaFactory(
+            @SuppressWarnings("rawtypes") final Set<Class> classesToMap
+			)
+	{
+		this( classesToMap, null );
+	}
+	
+	
+	public MorphiaFactory(
+            @SuppressWarnings("rawtypes") final Set<Class> classesToMap,
+            final Set<Class<? extends TypeConverter>> converters
+			)
+	{
+        _morphia = (classesToMap == null
+                	? (new Morphia()) : (new Morphia( classesToMap )));
+
+        if (converters != null  &&  converters.size() > 0) {
+        	DefaultConverters  defaultConverters = _morphia.getMapper().getConverters();
+        	for (Class<? extends TypeConverter>  converter : converters) {
+        		defaultConverters.addConverter( converter );
+        	}
+        }
+	}
+
+	
+	
+	public void setMongoClient( 
+			final MongoClient client 
+			)
+	{
+		_client = client;
+	}
+	
+	
+	
+	public Datastore createDatastore( 
+			final String dbName 
+			)
+	{
+		Datastore  ds = _morphia.createDatastore( _client, dbName );
+		return ds;
+	}
+	
+	
+	public Datastore createDatastore( 
+			final String dbName,
+			final String username,
+			final String password
+			)
+	{
+		DB  db = _client.getDB( dbName );
+		
+		if (username != null  &&  username.length() > 0
+				&&  password != null  &&  password.length() > 0) {
+			@SuppressWarnings("deprecation")
+			boolean  auth = db.authenticate( username, password.toCharArray() );
+			if (!auth) {
+				throw new RepositoryException( "authentication failed" );
+			}
+		}
+		
+		return createDatastore( dbName );
+	}
+	
+	
+
 
     /**
      * Construct a new instance.
