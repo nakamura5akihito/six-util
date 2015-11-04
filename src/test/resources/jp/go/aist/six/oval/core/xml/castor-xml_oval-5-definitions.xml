@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<!-- /////////////////////////////////////////////////////////// -->
+<!-- // Project SIX: OVAL                                     // -->
+<!-- //                                                       // -->
+<!-- // Castor XML Mapping Specification                      // -->
+<!-- /////////////////////////////////////////////////////////// -->
+
+<!-- @author    Akihito Nakamura, AIST -->
+<!-- @version   $Id: castor-xml_oval-5-definitions.xml 3022 2013-02-18 08:48:48Z nakamura5akihito@gmail.com $ -->
+
+<mapping>
+
+    <class name="model.common.GeneratorType">
+        <map-to
+            ns-uri="http://oval.mitre.org/XMLSchema/oval-common-5"
+            ns-prefix=""/>
+<!--
+-->
+        <field name="productName" type="string">
+            <bind-xml name="product_name" node="element"
+            />
+<!--
+            xmlns="http://oval.mitre.org/XMLSchema/oval-common-5"
+            <bind-xml name="oval:product_name" node="element"
+            xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"/>
+-->
+        </field>
+        <field name="productVersion" type="string">
+            <bind-xml name="product_version" node="element"/>
+        </field>
+        <field name="schemaVersion" type="string">
+            <bind-xml name="schema_version" node="element"/>
+        </field>
+        <field name="timestamp" type="string">
+            <bind-xml name="timestamp" node="element"/>
+        </field>
+    </class>
+
+
+    <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+    <!-- %                                                     % -->
+    <!-- %  xmlns:oval-definitions-5                           % -->
+    <!-- %                                                     % -->
+    <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+    <class name="model.definitions.OvalDefinitions"
+        extends="model.Document">
+        <map-to xml="oval_definitions"
+            ns-uri="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+            ns-prefix=""/>
+
+        <field name="generator" 
+            type="model.common.GeneratorType">
+            <bind-xml name="generator" node="element"
+            />
+<!-- 
+            xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5"
+-->
+        </field>
+    </class>
+
+</mapping>
+

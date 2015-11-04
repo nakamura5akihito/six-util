@@ -33,11 +33,12 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import jp.go.aist.six.util.core.xml.spring327.CastorMarshaller;
 import jp.go.aist.six.util.xml.XmlException;
 import jp.go.aist.six.util.xml.XmlMapper;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
-import org.springframework.oxm.castor.CastorMarshaller;
+//import org.springframework.oxm.castor.CastorMarshaller;
 
 
 
@@ -127,6 +128,7 @@ public class CastorXmlMapper
     //  XmlMapper
     //**************************************************************
 
+    @Override
     public void marshal(
                     final Object obj,
                     final Result result
@@ -143,6 +145,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public void marshal(
                     final Object obj,
                     final OutputStream stream
@@ -190,6 +193,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public void marshal(
                     final Object obj,
                     final Writer writer
@@ -215,6 +219,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public String marshalToString(
                     final Object obj
                     )
@@ -229,6 +234,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public Object unmarshal(
                     final Source source
                     )
@@ -247,6 +253,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public <T> T unmarshal(
                     final Source source,
                     final Class<T> type
@@ -258,6 +265,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public Object unmarshal(
                     final InputStream stream
                     )
@@ -284,6 +292,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public <T> T unmarshal(
                     final InputStream stream,
                     final Class<T> type
@@ -295,6 +304,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public Object unmarshal(
                     final Reader reader
                     )
@@ -322,6 +332,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public <T> T unmarshal(
                     final Reader reader,
                     final Class<T> type
@@ -333,6 +344,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public Object unmarshalFromString(
                     final String xml
                     )
@@ -346,6 +358,7 @@ public class CastorXmlMapper
 
 
 
+    @Override
     public <T> T unmarshalFromString(
                     final String xml,
                     final Class<T> type

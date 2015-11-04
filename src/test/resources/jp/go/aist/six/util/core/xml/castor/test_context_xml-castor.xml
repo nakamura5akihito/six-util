@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Spring Application Context
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xsi:schemaLocation="
+      http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context 
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/util 
+      http://www.springframework.org/schema/util/spring-util.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <!-- ************************************************************** -->
+    <!-- *  XML                                                       * -->
+    <!-- ************************************************************** -->
+
+    <bean id="marshaller" 
+       class="jp.go.aist.six.util.core.xml.spring327.CastorMarshaller">
+<!--
+       class="org.springframework.oxm.castor.CastorMarshaller">
+-->
+        <property name="mappingLocations">
+            <list>
+                 <value>classpath:jp/go/aist/six/oval/core/xml/castor-xml_oval-5-definitions.xml</value>
+                 
+                 <!--
+                 <value>classpath:jp/go/aist/six/oval/core/xml/castor-xml_oval-5-common.xml</value>
+                 <value>classpath:jp/go/aist/six/oval/core/xml/castor-xml_oval-5-macos.xml</value>
+                 <value>classpath:io/opensec/util/core/xml/castor/castor-xml_opensec-util.xml</value>
+                 -->
+            </list>
+        </property>
+<!-- @since Spring 3.2.8
+        <property name="processExternalEntities" value="true"/>
+-->
+        <property name="ignoreExtraAttributes" value="false"/>
+        <property name="ignoreExtraElements"   value="false"/>
+        <property name="suppressXsiType"       value="true"/>
+        <property name="encoding"              value="UTF-8"/>
+
+        <property name="schemaLocation" value="${six.oval.xml.schemaLocation}"/>  
+
+        <property name="namespaceMappings">
+            <map>
+                <entry key="xsi"        value="http://www.w3.org/2001/XMLSchema-instance"/>
+                <entry key="oval"       value="http://oval.mitre.org/XMLSchema/oval-common-5"/>
+                <entry key="oval-def"   value="http://oval.mitre.org/XMLSchema/oval-definitions-5"/>
+                <entry key="oval-sc"    value="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5"/>
+                <entry key="oval-res"   value="http://oval.mitre.org/XMLSchema/oval-results-5"/>
+                <entry key="opensearch" value="http://a9.com/-/spec/opensearch/1.1/"/>
+            </map>
+        </property>
+    </bean> 
+
+    <bean id="xml-mapper" 
+       class="jp.go.aist.six.util.core.xml.castor.CastorXmlMapper">
+        <property name="marshaller"   ref="marshaller"/>
+        <property name="unmarshaller" ref="marshaller"/>
+    </bean>
+
+</beans>

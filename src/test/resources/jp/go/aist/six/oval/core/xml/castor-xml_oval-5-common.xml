@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+
+<!-- /////////////////////////////////////////////////////////// -->
+<!-- // Project SIX: OVAL                                     // -->
+<!-- //                                                       // -->
+<!-- // Castor XML Mapping Specification                      // -->
+<!-- /////////////////////////////////////////////////////////// -->
+
+<!-- @author    Akihito Nakamura, AIST -->
+<!-- @version   $Id: castor-xml_oval-5-common.xml 3025 2013-02-19 08:29:09Z nakamura5akihito@gmail.com $ -->
+
+<mapping>
+
+    <class name="model.common.GeneratorType">
+        <map-to 
+            ns-uri="http://oval.mitre.org/XMLSchema/oval-common-5"
+            ns-prefix="oval"/>
+        <field name="productName" type="string">
+            <bind-xml name="product_name" node="element"/>
+        </field>
+        <field name="productVersion" type="string">
+            <bind-xml name="product_version" node="element"/>
+        </field>
+        <field name="schemaVersion" type="string">
+            <bind-xml name="schema_version" node="element"/>
+        </field>
+        <field name="timestamp" type="string">
+            <bind-xml name="timestamp" node="element"/>
+        </field>
+    </class>
+
+</mapping>
+
